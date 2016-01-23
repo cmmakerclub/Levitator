@@ -25,9 +25,9 @@ float prev_error = 0;
 float error_dot = 0;
 float error_sum = 0;
 
-float kp = 500*4;
+float kp = 500;
 float ki = 30;
-float kd = 3.65*50;
+float kd = 3.65;
 float output  = 0;
 
 uint32_t time_now, time_prev_pid, time_prev_print;
@@ -102,12 +102,14 @@ void PID(void)
   output = kp * error + ki * error_sum + kd * error_dot + 220;
 
   if (output < 0)   output = 0;
-  if (output > 1023) output = 1023;
+  if (output > 255) output = 255;
 
   if (state < 6)
   {
     output = 0;
     error_sum = 0;
+    error_dot = 0;
+    error = 0;
   }
   //  output = 0;
   analogWrite(magnetic, output);
