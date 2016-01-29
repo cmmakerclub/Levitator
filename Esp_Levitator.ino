@@ -53,7 +53,7 @@ float state = 0;
 float state_f = 0;
 float prev_state = 0;
 float prev_state_f = 0;
-float ref = 7.0;
+float ref = 8.3;
 float error = 0;
 float prev_error = 0;
 float error_dot = 0;
@@ -121,13 +121,13 @@ void PRE_EEPROM_write_Gain()
 
     int buffer[6] = {0};
 
-    int16_t g_buffer = 500 ;
+    int16_t g_buffer = 400 ;
     buffer[0] =  (int8_t)(g_buffer >> 8);
     buffer[1] =  (int8_t)g_buffer;
     g_buffer = 200;
     buffer[2] =  (int8_t)(g_buffer >> 8);
     buffer[3] =  (int8_t)g_buffer;
-    g_buffer = 500 ;
+    g_buffer = 320 ;
     buffer[4] =  (int8_t)(g_buffer >> 8);
     buffer[5] =  (int8_t)g_buffer;
 
@@ -193,7 +193,7 @@ void setup()
   EEPROM_read_Gain();
 
   ticker_PID.attach_ms(10, PID);
-  // ticker_DEGUG.attach_ms(1000, Debug);
+  ticker_DEGUG.attach_ms(1000, Debug);
 
 
 }
@@ -354,12 +354,12 @@ void PID(void)
   error_dot = (error - prev_error) * 200.0f;
   error_sum = error_sum + error / 200.0f;
 
-  output = kp * error + ki * error_sum + kd * error_dot + 220;
+  output = kp * error + ki * error_sum + kd * error_dot + 250; // offser g
 
   if (output < 0)   output = 0;
   if (output > 1023) output = 1023;
 
-  if (state < 6 || state > 9.5f)
+  if (state < 6 || state > 10.0f)
   {
     output = 0;
     error_sum = 0;
