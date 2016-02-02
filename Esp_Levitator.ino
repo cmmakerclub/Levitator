@@ -7,6 +7,9 @@
   mosfet irf 540n
   supply 12v
   coil 10 ohm
+
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! using ESP8266 Stable version 2.0.0 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 #include <EEPROM.h>
 #include <Ticker.h>
